@@ -458,7 +458,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "OBC.kicad_pro",
+    "filename": "Jennie_OBC_sys.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -496,7 +496,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "3D_model/Jennie_OBC_sys.step",
       "svg": "",
       "vrml": ""
     },
