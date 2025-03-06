@@ -1,0 +1,27 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model TPS79533DCQ
+#/3294/1252476/2.50/6/3/Integrated Circuit
+DEF TPS79533DCQ IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "TPS79533DCQ" 1050 200 50 H V L CNN
+F2 "SOT127P706X180-6N" 1050 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100034063.pdf" 1050 0 50 H I L CNN
+F4 "TPS79533DCQ, Low Dropout Voltage Regulator, 0.5A, 3.3 V +/-2%, 2.7  5.5 Vin, 6-Pin SOT-223" 1050 -100 50 H I L CNN "Description"
+F5 "1.8" 1050 -200 50 H I L CNN "Height"
+F6 "595-TPS79533DCQ" 1050 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/TPS79533DCQ?qs=0O%2FZFlpUpJU8SL7TK1VVHw%3D%3D" 1050 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Texas Instruments" 1050 -500 50 H I L CNN "Manufacturer_Name"
+F9 "TPS79533DCQ" 1050 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X EN 1 0 0 200 R 50 50 0 0 P
+X IN 2 0 -100 200 R 50 50 0 0 I
+X GND 3 0 -200 200 R 50 50 0 0 W
+X OUT 4 0 -300 200 R 50 50 0 0 O
+X NR/FB 5 0 -400 200 R 50 50 0 0 P
+X GND_1 6 1200 0 200 L 50 50 0 0 W
+P 5 0 1 6 200 100 1000 100 1000 -500 200 -500 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library

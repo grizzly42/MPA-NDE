@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NCV8161BSN330T1G
+D Ultra High PSRR 90dB at 1kHz, 20mA; Ultra Low Output Noise 10VRMS; Very Low Dropout 225mV@450mA; Ultra Low Quiescent current 18A
+K
+F https://www.onsemi.com/pub/Collateral/NCV8161-D.PDF
+$ENDCMP
+#
+#End Doc Library

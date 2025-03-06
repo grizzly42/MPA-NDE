@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ABM8-16.000MHZ-7-1-U-T
+D CERAMIC SMD CRYSTAL
+K
+F https://abracon.com/Resonators/abm8.pdf
+$ENDCMP
+#
+#End Doc Library
