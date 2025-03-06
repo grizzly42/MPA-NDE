@@ -20,6 +20,60 @@ The Antenna Deployment Mechanism (ADM) is designed to stow and deploy a flexible
 
 ## Block diagram
 <img width="712" alt="blokove_schema_navrhu" src="https://github.com/user-attachments/assets/2b6d8c76-4798-46ee-b662-08b46337790c" />
+## SW (Dodělat)
+```c
+   DE2-PROJECT          
+   ├── include         // Included file(s)
+   │   └── timer.h
+   ├── lib             // Libraries
+   │   ├── gpio        // Your GPIO library
+   │   │   ├── gpio.c
+   │   │   └── gpio.h
+   │   ├── oled        
+   │   │   ├── oled.c
+   │   │   ├── oled.h
+   │   │   └── font.h
+   │   ├── uart       
+   │   │   ├── uart.c
+   │   │   └── uart.h
+   │   ├── twi       
+   │   │   ├── twi.c
+   │   │   └── twi.h
+   │   ├── soil       
+   │   │   ├── soil.c
+   │   │   └── soil.h
+   │   ├── controls       
+   │   │   ├── controls.c
+   │   │   └── controls.
+   │   ├── HumTempSensor       
+   │   │   ├── HumTempSensor.c
+   │   │   └── HumTempSensor.h
+   │   ├── rtc       
+   │   │   ├── rtc.c
+   │   │   └── rtc.h
+   │   ├── display       
+   │   │   ├── display.c
+   │   │   └── display.h
+   │   ├── buttons       
+   │   │   ├── buttons.c
+   │   │   └── buttons.h
+   │   ├── pot       
+   │   │   ├── pot.c
+   │   │   └── pot.h
+   │   └── light       
+   │       ├── light.c
+   │       └── light.h
+   ├── src             // Source file(s)
+   │   └── main.c
+   ├── test            // No need this
+   └── platformio.ini  // Project Configuration File
+   ```
+<!---
+Tohle jsem z toho vytáhl jelikož to již nepoužíváme
+ │   ├── rtc        
+ │   │   ├── rtc.c
+ │   │   └── rtc.h
+ -->
 
 
 ## Team
