@@ -20,7 +20,8 @@ The Antenna Deployment Mechanism (ADM) is designed to stow and deploy a flexible
 
 ## Block diagram
 <img width="712" alt="blokove_schema_navrhu" src="https://github.com/user-attachments/assets/2b6d8c76-4798-46ee-b662-08b46337790c" />
-## SW (Dodělat)
+
+## SW (Dodělat podle skutečnosti)
 
 ```c
    DE2-PROJECT          
