@@ -18,6 +18,10 @@ The Antenna Deployment Mechanism (ADM) is designed to stow and deploy a flexible
 - **Microcontroller (MCU) and Activation Circuitry**
 - **Sensors for Deployment Verification**
 
+## Block scheme
+<img width="712" alt="blokove_schema_navrhu" src="https://github.com/user-attachments/assets/2b6d8c76-4798-46ee-b662-08b46337790c" />
+
+
 ## Team
 This project is developed by students of **MPA-NDE 24/25L** at BUT FEEC as part of a nanosatellite technology research initiative.
 
