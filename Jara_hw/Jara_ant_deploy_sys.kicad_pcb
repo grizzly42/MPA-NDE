@@ -80,6 +80,7 @@
 		)
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
+		(aux_axis_origin 114 54)
 		(pcbplotparams
 			(layerselection 0x00010fc_ffffffff)
 			(plot_on_all_layers_selection 0x0000000_00000000)
@@ -752,6 +753,17 @@
 			(uuid "3267a56b-316a-4261-836a-23cf731e23e0")
 		)
 		(model "ZMA00A080L04RC.stp"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+		(model "C:/Users/Uživatel/Documents/MPA-NDE/kicad_project_libs/moment_switch/ZMA00A080L04RC.stp"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2647,6 +2659,17 @@
 				(xyz 0 0 0)
 			)
 		)
+		(model "C:/Users/Uživatel/Documents/MPA-NDE/kicad_project_libs/moment_switch/ZMA00A080L04RC.stp"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "Package_TO_SOT_SMD:SOT-23"
 		(layer "F.Cu")
@@ -3329,6 +3352,17 @@
 			)
 			(rotate
 				(xyz -90 0 180)
+			)
+		)
+		(model "C:/Users/Uživatel/Documents/MPA-NDE/kicad_project_libs/hoperf95/RFM95 LoRa v15.step"
+			(offset
+				(xyz 8 -8 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 -180)
 			)
 		)
 	)
@@ -4411,6 +4445,16 @@
 		)
 	)
 	(gr_line
+		(start 195.36 135.35)
+		(end 195.36 130.83)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "03d3de20-e3fc-4dd9-8276-d1ea5535fe34")
+	)
+	(gr_line
 		(start 149.6 102.25)
 		(end 147.85 102.99)
 		(stroke
@@ -4551,6 +4595,16 @@
 		(uuid "5e66ade9-c9f9-43d2-9398-511044ffa303")
 	)
 	(gr_line
+		(start 114.62 130.64)
+		(end 114.62 135.39)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "6a5de2f7-1f75-4707-b197-ef7d81559a2d")
+	)
+	(gr_line
 		(start 147.85 102.99)
 		(end 147.33 103.07)
 		(stroke
@@ -4559,6 +4613,16 @@
 		)
 		(layer "Dwgs.User")
 		(uuid "73971893-d3b4-4ff3-9ed3-6b990d4aad54")
+	)
+	(gr_line
+		(start 195.39 54.62)
+		(end 190.87 54.62)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "76d36a95-17a4-4e19-ba65-7cf72c666c9c")
 	)
 	(gr_line
 		(start 194.49 87.16)
@@ -4599,6 +4663,16 @@
 		)
 		(layer "Dwgs.User")
 		(uuid "aa19d85c-66fc-4ddb-9e29-fc87a7852668")
+	)
+	(gr_line
+		(start 114.62 135.39)
+		(end 119.14 135.39)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "aa215de6-20f0-4237-ac1b-e3b35fd2086f")
 	)
 	(gr_line
 		(start 162.1 117.8)
@@ -4671,6 +4745,16 @@
 		(uuid "c9946bf4-ef3c-49ee-b309-d1b02b934120")
 	)
 	(gr_line
+		(start 190.61 135.35)
+		(end 195.36 135.35)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "d66799ad-8eec-4990-b22d-a08d0b298d70")
+	)
+	(gr_line
 		(start 165.08 121.54)
 		(end 162.1 117.8)
 		(stroke
@@ -4701,6 +4785,16 @@
 		(uuid "e8c4e1d7-3a60-4f0c-9b17-d43520a0b895")
 	)
 	(gr_line
+		(start 195.39 59.37)
+		(end 195.39 54.62)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "f06c29ff-861f-4e6f-937f-049dab12a2d1")
+	)
+	(gr_line
 		(start 151.21 81.48)
 		(end 151.2 99.08)
 		(stroke
@@ -4711,6 +4805,16 @@
 		(uuid "f31aeca5-b2ce-43a0-8ca7-044d5360dd7d")
 	)
 	(gr_line
+		(start 114.64 54.64)
+		(end 114.64 59.16)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "f467c620-0d11-4010-9bcb-d537b6eeca87")
+	)
+	(gr_line
 		(start 160.27 87.99)
 		(end 162.02 87.25)
 		(stroke
@@ -4719,6 +4823,16 @@
 		)
 		(layer "Dwgs.User")
 		(uuid "f504d5fc-80fa-4bb7-891f-67dfd7c1781d")
+	)
+	(gr_line
+		(start 119.39 54.64)
+		(end 114.64 54.64)
+		(stroke
+			(width 0.6)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "f926335d-f78f-4ae2-97de-dbdb421f36fc")
 	)
 	(gr_line
 		(start 174.2 127.26)
@@ -5587,6 +5701,71 @@
 		)
 		(uuid "f241e7fa-abd4-44d8-8093-b77616350cdf")
 	)
+	(gr_text "NDE-JARA-ANT-DEPL-MECH:TOP"
+		(at 141.74 53.67 0)
+		(layer "F.Cu")
+		(uuid "63b3b811-4c07-4776-b794-66a5e0dbb864")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.375)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "NDE-JARA-ANT-DEPL-MECH:BOTTOM"
+		(at 181.54 51.3 -0)
+		(layer "B.Cu")
+		(uuid "25fe0f81-50ee-4db5-a7f2-4bf424516cbd")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.375)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(dimension
+		(type center)
+		(layer "Dwgs.User")
+		(uuid "986fbddb-17c9-40b9-8084-f1c855222687")
+		(pts
+			(xy 196 54) (xy 196 58.77)
+		)
+		(style
+			(thickness 1)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(extension_offset 0.5) keep_text_aligned)
+	)
+	(dimension
+		(type center)
+		(layer "Dwgs.User")
+		(uuid "b57b81d1-20c9-4491-bd9a-b39b1798d9d0")
+		(pts
+			(xy 114 54) (xy 114 58.94)
+		)
+		(style
+			(thickness 1)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(extension_offset 0.5) keep_text_aligned)
+	)
+	(dimension
+		(type center)
+		(layer "Dwgs.User")
+		(uuid "e1ce211d-2ae1-48b3-9972-78447ca3f1ce")
+		(pts
+			(xy 114 136) (xy 114 140.4)
+		)
+		(style
+			(thickness 1)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(extension_offset 0.5) keep_text_aligned)
+	)
 	(via
 		(at 144.5 97.91)
 		(size 4.5)
@@ -5657,6 +5836,14 @@
 		(uuid "5f83cf5f-5b7f-44d2-a7ca-db7eba919144")
 	)
 	(via
+		(at 114 54)
+		(size 1)
+		(drill 0.6)
+		(layers "F.Cu" "B.Cu")
+		(net 0)
+		(uuid "6115587e-3086-4613-89e0-27722163598d")
+	)
+	(via
 		(at 166.56 116.54)
 		(size 4.5)
 		(drill 3.5)
@@ -5682,12 +5869,28 @@
 		(uuid "b19f251c-9b13-48d8-9faf-912900db5e20")
 	)
 	(via
+		(at 196 54)
+		(size 1)
+		(drill 0.6)
+		(layers "F.Cu" "B.Cu")
+		(net 0)
+		(uuid "b6712a64-2843-4992-90ac-c263fa03c948")
+	)
+	(via
 		(at 191 91.09)
 		(size 4.5)
 		(drill 3.5)
 		(layers "F.Cu" "B.Cu")
 		(net 0)
 		(uuid "c32e16c3-695a-4808-9b16-12f32f90f854")
+	)
+	(via
+		(at 114 136)
+		(size 1)
+		(drill 0.6)
+		(layers "F.Cu" "B.Cu")
+		(net 0)
+		(uuid "dfd22df7-fdbe-44fa-930d-f0e29af8fa6d")
 	)
 	(via
 		(at 150.3 62.8)
