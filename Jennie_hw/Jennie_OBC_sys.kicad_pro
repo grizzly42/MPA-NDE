@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.9,
-          "height": 2.0,
-          "width": 2.0
+          "drill": 2.7,
+          "height": 4.7,
+          "width": 4.7
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -188,6 +188,7 @@
         1.0,
         1.5,
         1.7,
+        2.0,
         4.5
       ],
       "tuning_pattern_settings": {
@@ -604,7 +605,7 @@
   "sheets": [
     [
       "ee08789e-4154-46d3-814e-8698208cea6a",
-      "Hlavní"
+      "Root"
     ]
   ],
   "text_variables": {}
