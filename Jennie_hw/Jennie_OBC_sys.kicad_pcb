@@ -8212,7 +8212,7 @@
 		(descr "DC Barrel Jack")
 		(tags "Power Jack")
 		(property "Reference" "J2"
-			(at -8.45 -5.75 360)
+			(at -8.45 -5.75 0)
 			(layer "B.SilkS")
 			(uuid "0a00fe69-9a57-4d11-ad9e-25b5a323ab0a")
 			(effects
@@ -8224,7 +8224,7 @@
 			)
 		)
 		(property "Value" "Barrel_Jack_Switch"
-			(at -6.2 5.5 360)
+			(at -6.2 5.5 0)
 			(layer "B.Fab")
 			(uuid "85a949cb-e58f-466d-8e9b-c283e34f7943")
 			(effects
@@ -8553,7 +8553,7 @@
 			(uuid "2195a870-42b4-46d0-8348-735452e978f6")
 		)
 		(fp_text user "${REFERENCE}"
-			(at -3 2.95 360)
+			(at -3 2.95 0)
 			(layer "B.Fab")
 			(uuid "7aa245cc-2941-41b9-9eeb-05a1afea4db6")
 			(effects
@@ -11836,30 +11836,6 @@
 			(arrow_length 1.27)
 			(text_position_mode 0)
 			(extension_offset 0.5) keep_text_aligned)
-	)
-	(via
-		(at 191.69 56.88)
-		(size 1.5)
-		(drill 0.6)
-		(layers "F.Cu" "B.Cu")
-		(net 0)
-		(uuid "0695e58f-5f1a-4160-8980-0b325eefbafd")
-	)
-	(via
-		(at 109.69 138.88)
-		(size 1.5)
-		(drill 0.6)
-		(layers "F.Cu" "B.Cu")
-		(net 0)
-		(uuid "2c7f99c2-cb83-4fa7-94f4-739d2a9d5752")
-	)
-	(via
-		(at 109.69 56.88)
-		(size 1.5)
-		(drill 0.6)
-		(layers "F.Cu" "B.Cu")
-		(net 0)
-		(uuid "b07dedf0-f2b3-41d8-a465-f14b24eb0146")
 	)
 	(segment
 		(start 142.66 93.4)
