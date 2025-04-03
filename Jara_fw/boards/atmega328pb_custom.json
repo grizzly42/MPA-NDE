@@ -1,0 +1,18 @@
+{
+    "build": {
+      "core": "standard",
+      "mcu": "atmega328pb",
+      "f_cpu": "16000000L",
+      "variant": "standard"
+    },
+    "name": "ATmega328PB Baremetal",
+    "url": "https://www.microchip.com/wwwproducts/en/ATmega328PB",
+    "vendor": "Custom",
+    "frameworks": ["baremetal"],
+    "upload": {
+      "maximum_size": 32768,
+      "maximum_ram_size": 2048,
+      "protocol": "arduino"
+    }
+  }
+  
