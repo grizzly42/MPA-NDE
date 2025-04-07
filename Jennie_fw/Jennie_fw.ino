@@ -21,10 +21,15 @@ unsigned long timeout_state = 0;
 bool output1_active = false;
 bool output2_active = false;
 
+const float referenceVoltage = 3.3;   // nebo 5.0, podle toho, co přivádíš na AREF
+const float voltageDividerRatio = 72.0 / (24.0 + 72.0);
+
 int counter = 0;
 
 void setup() {
   Serial.begin(9600);
+
+  analogReference(INTERNAL); // nastavíme referenci na 1.1V
 
   pinMode(SWITCH1_PIN, INPUT_PULLUP);
   pinMode(SWITCH2_PIN, INPUT_PULLUP);
@@ -91,6 +96,11 @@ void loop() {
     }
     if (!output1_active && !output2_active) {
       //start_depl = false;
+
+      int raw = analogRead(PC0); // nebo A0
+      float voltageADC = (raw / 1023.0) * referenceVoltage;
+      float batteryVoltage = voltageADC / voltageDividerRatio;
+
       digitalWrite(LED, LOW);
       Serial.println("Sekvence dokončena.");
 
@@ -99,8 +109,14 @@ void loop() {
 
       // send packet
       LoRa.beginPacket();
+      
       LoRa.print("hello ");
-      LoRa.print(counter);
+      LoRa.println(counter);
+
+      LoRa.print("Battery voltage: ");
+      LoRa.println(batteryVoltage);
+
+      
       LoRa.endPacket();
 
       counter++;
