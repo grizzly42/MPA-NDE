@@ -1,6 +1,8 @@
 #include <SPI.h>
 #include <LoRa.h>
 
+#include "pakety.h"
+
 #define LED PD3        // LED pro výstup
 #define BTN PD4        // Tlačítko pro aktivaci
 
@@ -25,6 +27,7 @@ const float referenceVoltage = 3.3;   // nebo 5.0, podle toho, co přivádíš n
 const float voltageDividerRatio = 72.0 / (24.0 + 72.0);
 
 int counter = 0;
+int p_counter = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -97,6 +100,8 @@ void loop() {
     if (!output1_active && !output2_active) {
       //start_depl = false;
 
+      delay(5000);
+
       int raw = analogRead(PC0); // nebo A0
       float voltageADC = (raw / 1023.0) * referenceVoltage;
       float batteryVoltage = voltageADC / voltageDividerRatio;
@@ -109,22 +114,23 @@ void loop() {
 
       // send packet
       LoRa.beginPacket();
-      
-      LoRa.print("hello ");
+
+      LoRa.print("pct n. ");
       LoRa.println(counter);
 
-      LoRa.print("Battery voltage: ");
+      LoRa.print("VBatt: ");
       LoRa.println(batteryVoltage);
 
-      
+      LoRa.println(pakety[p_counter]);
+
       LoRa.endPacket();
 
+      if (p_counter >= packet_count - 1) {
+        p_counter = 0;
+      } else {
+        p_counter++;
+      }
       counter++;
-
-      delay(5000);
-
-
-
     }
   }
 }
