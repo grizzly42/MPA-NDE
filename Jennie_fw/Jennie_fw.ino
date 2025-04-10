@@ -1,47 +1,47 @@
 #include <SPI.h>
 #include <LoRa.h>
 
-#include "pakety.h"
+#include "pakety.h" //file with messages to be sent
 
-#define LED PD3        // LED pro výstup
-#define BTN PD4        // Tlačítko pro aktivaci
+#define LED PD3        // LED indication
+#define BTN PD4        // Activation button (can be used to deploy antenna)
 
-#define SWITCH1_PIN 16  // Koncový spínač 1
-#define OUTPUT1_PIN 17  // Výstup pro spínač 1
+#define SWITCH1_PIN 16  // Deployment switch feedback 1
+#define OUTPUT1_PIN 17  // Transistor to switch current to depolyment resistor 1 
 
-#define SWITCH2_PIN 6  // Koncový spínač 2
-#define OUTPUT2_PIN 8  // Výstup pro spínač 2
+#define SWITCH2_PIN 6  // Deployment switch feedback 2
+#define OUTPUT2_PIN 8  // Transistor to switch current to depolyment resistor 1
 
-#define TIMEOUT 5000  // Timeout v ms
+#define ENABLE_PROG PC4
 
-#define BW 125E3
+#define TIMEOUT 5000  // Timeout in ms
+
+#define BW 125E3 // Bandwidth of LoRa modulation
 #define TXPWR 10 // in dBm
 #define SF 12 //spreading factor
 
-bool start_depl = false;
-unsigned long timeout_state = 0;
-bool output1_active = false;
+#define REF_VOLT = 3.3;
+#define DIVIDER_RATIO = 72.0 / (24.0 + 72.0);
+
+bool start_depl = false; // Enable deployment sequence
+bool output1_active = false; // Activatation of deployment trasistors
 bool output2_active = false;
 
-const float referenceVoltage = 3.3;
-const float voltageDividerRatio = 72.0 / (24.0 + 72.0);
-
-long max_milliseconds = 36000;
+long max_milliseconds = 36000; //transmitt policy (max 36 s per hour)
 int send_start = 0;
 
-int counter = 0;
-int p_counter = 0;
+int counter = 0; // Message counter
+int p_counter = 0; // Array pointer
 
-bool legal_mechanics = false;
+bool legal_trx = false;
 
 void setup() {
+
   Serial.begin(9600);
-
-  analogReference(INTERNAL); // nastavíme referenci na 1.1V
-
+   // Setting the pin modes
   pinMode(SWITCH1_PIN, INPUT_PULLUP);
   pinMode(SWITCH2_PIN, INPUT_PULLUP);
-
+  pinMode(ENABLE_PROG, INPUT_PULLDOWN);
   pinMode(OUTPUT1_PIN, OUTPUT);
   pinMode(OUTPUT2_PIN, OUTPUT);
 
@@ -52,29 +52,33 @@ void setup() {
   digitalWrite(OUTPUT1_PIN, LOW);
   digitalWrite(OUTPUT2_PIN, LOW);
 
+  while(digitalRead(ENABLE_PROG) == true){} // Wait to be programmed
+
+  // Set the trx freq. at 868MHz
   if (!LoRa.begin(868E6)) {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
-  LoRa.setSignalBandwidth(BW);
+  LoRa.setSignalBandwidth(BW); // Setting lora modulation
   LoRa.setTxPower(TXPWR);
   LoRa.setSpreadingFactor(SF);
 
-  // Signalizace zapnutí
+  // Indication of on state
   digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
   Serial.println("setup ok");
+
 }
 
 void loop() {
   delay(30);
   Serial.println("loop start");
-  if (digitalRead(BTN) == LOW || !start_depl) {
+  if (digitalRead(BTN) == LOW || !start_depl) { // Start of deployment sequence (start when RBF is removed or BTN is pressed)
     start_depl = true;
     Serial.println("Tlačítko stisknuto, start!");
 
-    // Aktivace výstupů
+    // Output activation - heating up the deployment resistors
     digitalWrite(LED, HIGH);
     digitalWrite(OUTPUT1_PIN, HIGH);
     digitalWrite(OUTPUT2_PIN, HIGH);
@@ -84,7 +88,6 @@ void loop() {
   }
 
   if (start_depl) {
-    // Kontrola výstupu 1
     
     if (output1_active) {
       if (digitalRead(SWITCH1_PIN) == HIGH) {
@@ -94,7 +97,6 @@ void loop() {
       }
     }
 
-    // Kontrola výstupu 2
     if (output2_active) {
       if (digitalRead(SWITCH2_PIN) == HIGH) {
         digitalWrite(OUTPUT2_PIN, LOW);
@@ -102,14 +104,14 @@ void loop() {
         Serial.println("OUTPUT 2 OFF");
       }
     }
-    if (!output1_active && !output2_active && (!legal_mechanics || max_milliseconds > 0)) {
+    if (!output1_active && !output2_active && (!legal_trx || max_milliseconds > 0)) {
       
       Serial.println("antenna deployment successful");
       delay(5000);
 
       int raw = analogRead(PC0); // nebo A0
-      float voltageADC = (raw / 1023.0) * referenceVoltage;
-      float batteryVoltage = voltageADC / voltageDividerRatio;
+      float voltageADC = (raw / 1023.0) * REF_VOLT;
+      float batteryVoltage = voltageADC / DIVIDER_RATIO;
 
       digitalWrite(LED, LOW);
       
