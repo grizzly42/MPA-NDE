@@ -65,7 +65,7 @@ void setup() {
 void loop() {
   delay(30);
   Serial.println("loop start");
-  if (digitalRead(BTN) == LOW && !start_depl) {
+  if (digitalRead(BTN) == LOW || !start_depl) {
     start_depl = true;
     Serial.println("Tlačítko stisknuto, start!");
 
