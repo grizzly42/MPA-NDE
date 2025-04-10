@@ -23,11 +23,16 @@ unsigned long timeout_state = 0;
 bool output1_active = false;
 bool output2_active = false;
 
-const float referenceVoltage = 3.3;   // nebo 5.0, podle toho, co přivádíš na AREF
+const float referenceVoltage = 3.3;
 const float voltageDividerRatio = 72.0 / (24.0 + 72.0);
+
+long max_milliseconds = 36000;
+int send_start = 0;
 
 int counter = 0;
 int p_counter = 0;
+
+bool legal_mechanics = false;
 
 void setup() {
   Serial.begin(9600);
@@ -79,8 +84,8 @@ void loop() {
   }
 
   if (start_depl) {
-    Serial.println("Depl start");
     // Kontrola výstupu 1
+    
     if (output1_active) {
       if (digitalRead(SWITCH1_PIN) == HIGH) {
         digitalWrite(OUTPUT1_PIN, LOW);
@@ -97,9 +102,9 @@ void loop() {
         Serial.println("OUTPUT 2 OFF");
       }
     }
-    if (!output1_active && !output2_active) {
-      //start_depl = false;
-
+    if (!output1_active && !output2_active && (!legal_mechanics || max_milliseconds > 0)) {
+      
+      Serial.println("antenna deployment successful");
       delay(5000);
 
       int raw = analogRead(PC0); // nebo A0
@@ -107,11 +112,7 @@ void loop() {
       float batteryVoltage = voltageADC / voltageDividerRatio;
 
       digitalWrite(LED, LOW);
-      Serial.println("Sekvence dokončena.");
-
-      Serial.print("Sending packet: ");
-      Serial.println(counter);
-
+      
       // send packet
       LoRa.beginPacket();
 
@@ -123,8 +124,12 @@ void loop() {
 
       LoRa.println(pakety[p_counter]);
 
+      send_start = millis();
       LoRa.endPacket();
+      max_milliseconds = max_milliseconds - (millis()-send_start);
 
+      Serial.println("packet sent");
+      
       if (p_counter >= packet_count - 1) {
         p_counter = 0;
       } else {

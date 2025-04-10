@@ -3,7 +3,7 @@
 
 String pakety[packet_count] =
 {
-"Antenna deployment sucessfull",
+"Antenna deployment successful",
 "404: Problém nenalezen",
 "Houstone, nemáme žádný problém",
 "Šli dva a prostřední upad HEHEHE",
