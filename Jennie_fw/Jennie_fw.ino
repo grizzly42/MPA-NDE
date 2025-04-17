@@ -1,69 +1,76 @@
 #include <SPI.h>
 #include <LoRa.h>
 
-#include "pakety.h" //file with messages to be sent
+#include "pakety.h"
 
-#define LED PD3        // LED indication
-#define BTN PD4        // Activation button (can be used to deploy antenna)
+#define LED PD3        // LED pro výstup
+#define BTN PD4        // Tlačítko pro aktivaci
 
-#define SWITCH1_PIN 16  // Deployment switch feedback 1
-#define OUTPUT1_PIN 17  // Transistor to switch current to depolyment resistor 1 
+#define SWITCH1_PIN 16  // Koncový spínač 1
+#define OUTPUT1_PIN 17  // Výstup pro spínač 1
 
-#define SWITCH2_PIN 6  // Deployment switch feedback 2
-#define OUTPUT2_PIN 8  // Transistor to switch current to depolyment resistor 1
+#define SWITCH2_PIN 6  // Koncový spínač 2
+#define OUTPUT2_PIN 8  // Výstup pro spínač 2
 
-#define ENABLE_PROG PC4
+#define PROG_EN PC4
+#define JUST_GND PC5
 
-#define TIMEOUT 5000  // Timeout in ms
+#define TIMEOUT 5000  // Timeout v ms
 
-#define BW 125E3 // Bandwidth of LoRa modulation
+#define BW 125E3
 #define TXPWR 10 // in dBm
 #define SF 12 //spreading factor
 
-#define REF_VOLT = 3.3;
-#define DIVIDER_RATIO = 72.0 / (24.0 + 72.0);
-
-bool start_depl = false; // Enable deployment sequence
-bool output1_active = false; // Activatation of deployment trasistors
+bool start_depl = false;
+unsigned long timeout_state = 0;
+bool output1_active = false;
 bool output2_active = false;
 
-long max_milliseconds = 36000; //transmitt policy (max 36 s per hour)
-int send_start = 0;
+const float referenceVoltage = 3.3;   // nebo 5.0, podle toho, co přivádíš na AREF
+const float voltageDividerRatio = 72.0 / (24.0 + 72.0);
 
-int counter = 0; // Message counter
-int p_counter = 0; // Array pointer
-
-bool legal_trx = false;
+int counter = 0;
+int p_counter = 0;
 
 void setup() {
-
   Serial.begin(9600);
-   // Setting the pin modes
+
   pinMode(SWITCH1_PIN, INPUT_PULLUP);
   pinMode(SWITCH2_PIN, INPUT_PULLUP);
-  pinMode(ENABLE_PROG, INPUT_PULLDOWN);
+
   pinMode(OUTPUT1_PIN, OUTPUT);
   pinMode(OUTPUT2_PIN, OUTPUT);
 
   pinMode(LED, OUTPUT);
   pinMode(BTN, INPUT_PULLUP);
 
+  pinMode(PROG_EN, INPUT_PULLUP);
+  pinMode(JUST_GND, OUTPUT);
+  digitalWrite(JUST_GND, LOW);
+
   digitalWrite(LED, LOW);
   digitalWrite(OUTPUT1_PIN, LOW);
   digitalWrite(OUTPUT2_PIN, LOW);
 
-  while(digitalRead(ENABLE_PROG) == true){} // Wait to be programmed
-
-  // Set the trx freq. at 868MHz
   if (!LoRa.begin(868E6)) {
     Serial.println("Starting LoRa failed!");
     while (1);
+  } else {
+    Serial.println("Starting LoRa succeed");
   }
-  LoRa.setSignalBandwidth(BW); // Setting lora modulation
+
+  // Bezpečnostní pojistka, pokud nechceme deployment
+  while (digitalRead(PROG_EN) == LOW) {
+    Serial.println("Programming wire connected");
+    delay(1000);
+  }
+
+
+  LoRa.setSignalBandwidth(BW);
   LoRa.setTxPower(TXPWR);
   LoRa.setSpreadingFactor(SF);
 
-  // Indication of on state
+  // Signalizace zapnutí
   digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
@@ -74,11 +81,11 @@ void setup() {
 void loop() {
   delay(30);
   Serial.println("loop start");
-  if (digitalRead(BTN) == LOW || !start_depl) { // Start of deployment sequence (start when RBF is removed or BTN is pressed)
+  if (digitalRead(BTN) == LOW || !start_depl) {
     start_depl = true;
     Serial.println("Tlačítko stisknuto, start!");
 
-    // Output activation - heating up the deployment resistors
+    // Aktivace výstupů
     digitalWrite(LED, HIGH);
     digitalWrite(OUTPUT1_PIN, HIGH);
     digitalWrite(OUTPUT2_PIN, HIGH);
@@ -88,7 +95,8 @@ void loop() {
   }
 
   if (start_depl) {
-    
+    Serial.println("Depl start");
+    // Kontrola výstupu 1
     if (output1_active) {
       if (digitalRead(SWITCH1_PIN) == HIGH) {
         digitalWrite(OUTPUT1_PIN, LOW);
@@ -97,6 +105,7 @@ void loop() {
       }
     }
 
+    // Kontrola výstupu 2
     if (output2_active) {
       if (digitalRead(SWITCH2_PIN) == HIGH) {
         digitalWrite(OUTPUT2_PIN, LOW);
@@ -104,17 +113,21 @@ void loop() {
         Serial.println("OUTPUT 2 OFF");
       }
     }
-    if (!output1_active && !output2_active && (!legal_trx || max_milliseconds > 0)) {
-      
-      Serial.println("antenna deployment successful");
+    if (!output1_active && !output2_active) {
+      //start_depl = false;
+
       delay(5000);
 
       int raw = analogRead(PC0); // nebo A0
-      float voltageADC = (raw / 1023.0) * REF_VOLT;
-      float batteryVoltage = voltageADC / DIVIDER_RATIO;
+      float voltageADC = (raw / 1023.0) * referenceVoltage;
+      float batteryVoltage = voltageADC / voltageDividerRatio;
 
       digitalWrite(LED, LOW);
-      
+      Serial.println("Sekvence dokončena.");
+
+      Serial.print("Sending packet: ");
+      Serial.println(counter);
+
       // send packet
       LoRa.beginPacket();
 
@@ -126,12 +139,8 @@ void loop() {
 
       LoRa.println(pakety[p_counter]);
 
-      send_start = millis();
       LoRa.endPacket();
-      max_milliseconds = max_milliseconds - (millis()-send_start);
 
-      Serial.println("packet sent");
-      
       if (p_counter >= packet_count - 1) {
         p_counter = 0;
       } else {

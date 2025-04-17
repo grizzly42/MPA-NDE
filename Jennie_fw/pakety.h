@@ -1,5 +1,5 @@
 
-#define packet_count 7
+#define packet_count 32
 
 String pakety[packet_count] =
 {
