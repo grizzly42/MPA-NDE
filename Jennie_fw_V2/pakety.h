@@ -1,7 +1,7 @@
 
-#define packet_count 32
+#define PACKET_COUNT 32
 
-String pakety[packet_count] =
+String pakety[PACKET_COUNT] =
 {
 "Antenna deployment successful.",
 "Hello there.",

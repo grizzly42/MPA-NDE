@@ -12,10 +12,12 @@
 #define SWITCH2_PIN 6  // Koncový spínač 2
 #define OUTPUT2_PIN 8  // Výstup pro spínač 2
 
-// safety countdown, test setting 1s
+// safety countdown, test setting: 1s
 #define CNTDWN 1000
 
-#define TIMEOUT 5000  // Timeout v ms
+// limit pro vysílání na 1h
+#define TX_LIMIT 36000
+#define WAIT_NEXT_HOUR 3564000
 
 #define BW 125E3
 #define TXPWR 10 // in dBm
@@ -25,14 +27,21 @@ enum State {
   PROG,
   COUNTDOWN,
   DEPLOYING,
-  TRANSMITING
+  TRANSMITING,
+  WAIT
 };
 
 State currentState = PROG;
 
-const float referenceVoltage = 3.3;   // nebo 5.0, podle toho, co přivádíš na AREF
+const float referenceVoltage = 3.3;
 const float voltageDividerRatio = 72.0 / (24.0 + 72.0);
 
+// systém pro nepřesáhnutí vysílacího limitu v radioamaterských pásmech
+long time_before = 0;
+long time_total =  0;
+long wait_start = 0;
+
+// počítadlo paktů a počítadlo paktů, které se resetuje podle aktuálního packet listu
 int counter = 0;
 int p_counter = 0;
 
@@ -70,10 +79,6 @@ void setup() {
   Serial.println("setup ok");
 
 }
-
-// START_COUNTDOWN,
-//  DEPLOYING,
-//  TRANSMITING
 
 void loop() {
   delay(30);
@@ -137,17 +142,38 @@ void loop() {
 
       LoRa.println(pakety[p_counter]);
 
-      LoRa.endPacket();
+      Serial.println(pakety[p_counter]);
+      //long time_total =  0;
 
-      if (p_counter >= packet_count - 1) {
+      time_before = millis();
+      LoRa.endPacket();
+      time_total = time_total + (millis() - time_before);
+
+      Serial.println(time_total);
+
+      if (time_total >= TX_LIMIT) {
+        Serial.println("WTF");
+        currentState = WAIT;
+        wait_start = millis();
+      }
+
+      if (p_counter >= PACKET_COUNT - 1) {
         p_counter = 0;
       } else {
         p_counter++;
       }
       counter++;
+      Serial.println("WTF");
+      break;
+
+    case WAIT:
+      Serial.println("state: WAIT");
+
+      if ((millis() - wait_start) > WAIT_NEXT_HOUR) {
+        currentState = TRANSMITING;
+        time_total = 0;
+      }
+
       break;
   }
-
-
-
 }
