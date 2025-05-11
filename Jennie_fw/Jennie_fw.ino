@@ -87,8 +87,8 @@ void loop() {
 
     // Aktivace výstupů
     digitalWrite(LED, HIGH);
-    digitalWrite(OUTPUT1_PIN, HIGH);
-    digitalWrite(OUTPUT2_PIN, HIGH);
+    //digitalWrite(OUTPUT1_PIN, HIGH);
+    //digitalWrite(OUTPUT2_PIN, HIGH);
 
     output1_active = true;
     output2_active = true;
