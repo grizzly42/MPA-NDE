@@ -4074,7 +4074,7 @@
 		)
 		(uuid "dcaeeec2-3fda-443e-95e0-d156d5eda7ac")
 	)
-	(label "DIO7"
+	(label "DIO0"
 		(at 147.32 96.52 180)
 		(fields_autoplaced yes)
 		(effects
